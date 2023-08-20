@@ -5,10 +5,10 @@ import argparse
 
 
 
-u = "https://192.168.1.107:8834/"
-folder_id = "32"
-accessKey = "e53e028bbcd91c06d1890b5ad20d6d1e50e9480b77bbaea62c633778f01be223"
-secretKey = "f947bc174a51c2241d30bdcb20c5febca85df0a2d48de1ace21b1fac4dfd7fa0"
+u = ""
+folder_id = ""
+accessKey = ""
+secretKey = ""
 
 header = {
 
