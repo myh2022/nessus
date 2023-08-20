@@ -3,9 +3,12 @@ import json
 import argparse
 
 
-u = ""
-accessKey = ""
-secretKey = ""
+
+
+u = "https://192.168.1.107:8834/"
+folder_id = "32"
+accessKey = "e53e028bbcd91c06d1890b5ad20d6d1e50e9480b77bbaea62c633778f01be223"
+secretKey = "f947bc174a51c2241d30bdcb20c5febca85df0a2d48de1ace21b1fac4dfd7fa0"
 
 header = {
 
@@ -14,9 +17,6 @@ header = {
 
 
 def get_scan_list():
-
-
-
 
     url = f"{u}scans"
 
@@ -50,14 +50,15 @@ def downloadfile(token, filename):
 
     r = requests.get(downloadurl, stream=True, verify=False)
 
-    with open("./{filename}.csv", "wb") as f:
+    with open(f"./csv/{filename}.csv", "wb") as f:
         for chunk in r.iter_content(chunk_size=512):
             f.write(chunk)
 
 
 # 拿到scans的id
 def getScanId():
-    url = f"{u}scans?"
+    url = f"{u}scans?folder_id={folder_id}"
+    print(url)
     response = requests.get(url, headers=header, verify=False)
     if response.status_code == 200:
         data = json.loads(response.text)
@@ -70,11 +71,13 @@ if __name__ == '__main__':
     parser.add_argument('-u')
     parser.add_argument('-ak')
     parser.add_argument('-sk')
+    parser.add_argument('-fid')
 
     args = parser.parse_args()
     u = args.u
     accessKey = args.ak
     secretKey = args.sk
+    folder_id = args.fid
 
     header = {
         'X-ApiKeys': 'accessKey={accesskey};secretKey={secretkey}'.format(accesskey=accessKey, secretkey=secretKey),
